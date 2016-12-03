@@ -1,0 +1,33 @@
+<div id="main-canvas">
+	
+</div>
+
+
+<script src="scripts/particleFilter.js"></script>
+<script src="scripts/painter.js"></script>
+
+<script type="text/javascript">
+	
+var mapIp = [
+				["H","H","T"],
+				["N","N","N"],
+				["N","B","H"]
+			];
+
+var pf = new ParticleFilter(mapIp,10);
+var painter = new Painter("main-canvas");
+
+var pfData = pf.getData();
+painter.drawCanvas(pfData,40,40);
+
+var str = ["UP","LEFT","DOWN","RIGHT"];
+
+for(var s in str) {
+	pf.nextIteration(str[s]);
+	painter.drawCanvas(pf.getData(),40,40);
+}
+
+console.log(pf.getActual());
+
+
+</script>
