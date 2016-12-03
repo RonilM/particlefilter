@@ -33,7 +33,8 @@ painter.drawCanvas(pfData,40,40);
 console.log(pf.getActual());
 
 function nextIteration() {
-	pf.nextIteration(str[idx++]);
+	pf.nextIteration(str[idx],idx);
+	idx++;
 	painter.drawCanvas(pf.getData(),40,40);
 	console.log(pf.getActual());
 }

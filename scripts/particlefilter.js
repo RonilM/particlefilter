@@ -5,7 +5,7 @@ var ParticleFilter = function(gridData,nParticles) {
 	var actual = {};
 	init();
 
-	ParticleFilter.prototype.nextIteration = function(action) {
+	ParticleFilter.prototype.nextIteration = function(action,idx) {
 		this.createSamples();
 		this.transitionSamples(action);
 		this.moveActual(action);
@@ -223,8 +223,11 @@ var ParticleFilter = function(gridData,nParticles) {
 		return {'x': iRet,'y': jRet};
 	}
 
-	function getActualObservation() {
-		var actData = data[actual.x][actual.y];
+	function getActualObservation(idx) {
+
+		var str = ["N","N","H","H"];
+		return str[idx];
+		/*var actData = data[actual.x][actual.y];
 		var rand = Math.random();
 		var str = ["N","H","T"];
 		var search_term = actData.type;
@@ -243,7 +246,7 @@ var ParticleFilter = function(gridData,nParticles) {
 		}
 		else {
 			return str[1];
-		}
+		}*/
 
 	}
 
