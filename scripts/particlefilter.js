@@ -10,7 +10,7 @@ var ParticleFilter = function(gridData,nParticles) {
 		this.createSamples();
 		this.transitionSamples(action);
 		this.moveActual(action);
-		this.weighSamplesUsingObservation();
+		this.weighSamplesUsingObservation(idx);
 		this.updateProbabilitiesUsingParticles();
 
 	}	
@@ -57,9 +57,9 @@ var ParticleFilter = function(gridData,nParticles) {
 		}
 	}	
 	
-	ParticleFilter.prototype.weighSamplesUsingObservation = function () {
+	ParticleFilter.prototype.weighSamplesUsingObservation = function (idx) {
 
-		var observed = getActualObservation();
+		var observed = getActualObservation(idx);
 		for(var i = 0; i  < nParticles ; i++) {
 			var particle = particles[i];
 			var type = data[particle.cell.x][particle.cell.y].type;
