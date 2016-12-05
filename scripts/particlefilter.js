@@ -217,10 +217,10 @@ var ParticleFilter = function(gridData,nParticles) {
 				iRet = i+1;
 				break;
 			case 'left':
-				jRet = i-1;
+				jRet = j-1;
 				break;
 			case 'right':
-				jRet = i+1;
+				jRet = j+1;
 				break;
 
 		}
