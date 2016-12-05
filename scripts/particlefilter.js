@@ -3,6 +3,7 @@ var ParticleFilter = function(gridData,nParticles) {
 	var data = [];
 	var particles = [];
 	var actual = {};
+	var actualList = [];
 	init();
 
 	ParticleFilter.prototype.nextIteration = function(action,idx) {
@@ -20,7 +21,11 @@ var ParticleFilter = function(gridData,nParticles) {
 
 	ParticleFilter.prototype.moveActual = function(action) {
 
-		actual = getNextCell(action,actual.x,actual.y);
+		_actual = getNextCell(action,actual.x,actual.y);
+		if(Math.random() < 0.9)
+			actual = _actual;
+		actualList.push(actual);
+
 	}
 	
 	ParticleFilter.prototype.getActual = function() {
@@ -95,6 +100,10 @@ var ParticleFilter = function(gridData,nParticles) {
 
 	}
 
+	ParticleFilter.prototype.getActualList = function() {
+		return actualList;
+	}
+
 	function init() {
 
 
@@ -130,7 +139,8 @@ var ParticleFilter = function(gridData,nParticles) {
 		updateProbabilityRanges(data);
 
 		actual = getCellFromProbability(Math.random());
-
+		//actual = {'x':0,'y':0}
+		actualList.push(actual);
 
 	}
 

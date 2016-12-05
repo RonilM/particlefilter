@@ -27,7 +27,7 @@ var Painter = function(canvasID) {
 
 				var grp = document.createElementNS(xmlns,'g');
 				var text = document.createElementNS(xmlns,'text');
-				text.textContent = data[i][j].prob;
+				text.textContent = Math.round(data[i][j].prob*10000)/10000;
 				text.setAttributeNS(null, 'x', x+5.5);
 				text.setAttributeNS(null, 'y', y+24);
 		        text.setAttributeNS(null, 'width', cellWidth/3);

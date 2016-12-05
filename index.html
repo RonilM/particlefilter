@@ -2,8 +2,11 @@
 	
 </div>
 <button onclick="nextIteration();">next</button>
+<button onclick="runViterbi();">Run Viterbi</button>
+<button onclick="iterateViterbiGraphics();">Iterate Viterbi Graphics</button>
 
 <script src="scripts/particleFilter.js"></script>
+<script src="scripts/viterbi.js"></script>
 <script src="scripts/painter.js"></script>
 
 <script type="text/javascript">
@@ -18,7 +21,7 @@ var idx = 0;
 
 
 
-var str = ["UP","LEFT","DOWN","RIGHT"];
+var str = ["RIGHT","RIGHT","DOWN","DOWN"];
 
 /*for(var s in str) {
 	pf.nextIteration(str[s]);
@@ -37,6 +40,51 @@ function nextIteration() {
 	idx++;
 	painter.drawCanvas(pf.getData(),40,40);
 	console.log(pf.getActual());
+}
+
+var result;
+function runViterbi() {
+	var viterbi = new Viterbi(mapIp);
+	result = viterbi.start();
+	var actualList = pf.getActualList();
+	var actCell = actualList[actualList.length-1];
+	var results = [];
+
+	var startCell = result[result.length-1][actCell.x][actCell.y];
+	_cell = startCell;
+	console.log("ACTUAL PATH:");
+	printList(actualList);
+	results.push(_cell);
+	
+	for(var i = 3; i >= 0 ; i--) {
+		
+		_cell = viterbi.getMaxCell(_cell);
+		if(_cell != null)
+			results.push(_cell);
+
+	}
+	results.reverse();
+	//results.push(startCell);
+	for(var t in results) {
+		//console.log(results[t]);
+	}
+	console.log("ESTIMATED PATH:");
+	printList(results);
+}
+
+var vitIdx = 0;
+function iterateViterbiGraphics() {
+	//console.log(result[vitIdx]);
+	painter.drawCanvas(result[vitIdx],40,40);
+	vitIdx++;
+}
+
+function printList(list) {
+	var printVal = "";
+	for(var l in list) {
+		printVal += "-> ("+list[l].x+","+list[l].y+")";
+	}
+	console.log(printVal);
 }
 
 </script>
