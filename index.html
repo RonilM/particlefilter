@@ -48,28 +48,38 @@ function runViterbi() {
 	result = viterbi.start();
 	var actualList = pf.getActualList();
 	var actCell = actualList[actualList.length-1];
-	var results = [];
-
-	var startCell = result[result.length-1][actCell.x][actCell.y];
-	_cell = startCell;
+	
 	console.log("ACTUAL PATH:");
 	printList(actualList);
-	results.push(_cell);
-	
-	for(var i = 3; i >= 0 ; i--) {
-		
-		_cell = viterbi.getMaxCell(_cell);
-		if(_cell != null)
-			results.push(_cell);
 
+	for(var _x = 0 ; _x < 3 ; _x++) {
+		for(var _y = 0 ; _y < 3 ; _y++) {
+
+			if(_x == 2 && _y == 1) {
+				continue;
+			}
+			var results = [];
+			var startCell = result[result.length-1][_x][_y];
+			_cell = startCell;
+			
+			results.push(_cell);
+			
+			for(var i = 3; i >= 0 ; i--) {
+				
+				_cell = viterbi.getMaxCell(_cell);
+				if(_cell != null)
+					results.push(_cell);
+
+			}
+			results.reverse();
+			//results.push(startCell);
+			for(var t in results) {
+				//console.log(results[t]);
+			}
+			console.log("ESTIMATED PATH:");
+			printList_prob(results);
+		}
 	}
-	results.reverse();
-	//results.push(startCell);
-	for(var t in results) {
-		//console.log(results[t]);
-	}
-	console.log("ESTIMATED PATH:");
-	printList(results);
 }
 
 var vitIdx = 0;
@@ -79,12 +89,20 @@ function iterateViterbiGraphics() {
 	vitIdx++;
 }
 
+function printList_prob(list) {
+	var printVal = "";
+	for(var l in list) {
+		printVal += "-> ("+list[l].x+","+list[l].y+")["+Math.round(list[l].prob*1000)/1000+"]";
+	}
+	console.log(printVal);
+}
+
 function printList(list) {
 	var printVal = "";
 	for(var l in list) {
 		printVal += "-> ("+list[l].x+","+list[l].y+")";
 	}
-	console.log(printVal);
+	console.log(printVal+"\n");
 }
 
 </script>
